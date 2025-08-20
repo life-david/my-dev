@@ -158,6 +158,26 @@ class CsvFilter {
         return result;
     }
 
+    writeTxtFileFilterBirthday() {
+        const data = this.filterMemberByMonthBirthDay();
+        let output = "";
+        let c = 0;
+
+        for (let m in data) {
+            data[m].members.forEach(member => {
+                output += `${member}\n`;
+            });
+            output += "---------------------------------------------------------\n";
+            output += `Tổng số thành viên: ${data[m].total}\n\n`;
+            this.writeFileHandel(`./Results/birthday_${m}.txt`, output);
+            output = "";
+            c++;
+        }
+
+        return c === 12;
+
+    }
+
 
 }
 
@@ -165,3 +185,4 @@ let s1 = new CsvFilter()
 // console.log(s1.getDataMember());
 // console.log(s1.filterMemberClubCommittee());
 console.log(s1.filterMemberByMonthBirthDay());
+console.log(s1.writeTxtFileFilterBirthday());
